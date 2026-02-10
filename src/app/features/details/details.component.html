@@ -1,0 +1,32 @@
+<section class="py-33">
+  <div class="container mx-auto max-w-screen-2xl px-4 mb-4">
+    <div class="grid sm:grid-cols-12 items-center">
+      <div class="col-span-3 gap-2">
+        <div>
+          <img [src]="productDetailsData().imageCover" [alt]="productDetailsData().title"
+            title="{{productDetailsData().title}}">
+        </div>
+      </div>
+      <div class="col-span-9">
+        <div>
+
+          <h2 class="text-lg pb-2 ">{{productDetailsData().title}}</h2>
+          <h3 class="text-lg">{{productDetailsData().category.name}}</h3>
+
+          <p class="text-base pb-2">{{productDetailsData().description}}</p>
+            <span>{{productDetailsData().price}}EGP</span>
+            <span>
+              <i class="fas fa-star text-yellow-500"></i>
+              {{productDetailsData().ratingsAverage}}
+            </span>
+
+          <button
+            class="btn-main translate-y-[120%] group-hover/card:translate-y-0 transition-[translate] duration-500">Add
+            to cart</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

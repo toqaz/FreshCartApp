@@ -1,0 +1,58 @@
+<div class="card group/card">
+      <div [routerLink]="['/details',product.slug ,product.id]" class="cursor-pointer">
+
+        <img [src]="product.imageCover" [alt]="product.title" title="{{product.title}}">
+        <h3 class="text-sm">{{product.category.name}}</h3>
+        <h4 class="text-lg mb-2 line-clamp-1">{{product.title |titlecase}}</h4>
+        <div class="flex flex-wrap items-center justify-between pb-2">
+          <span>{{product.price | currency:'GBP'}}</span>
+          <span>
+            <i class="fas fa-star text-yellow-500"></i>
+            {{product.ratingsAverage}}
+          </span>
+        </div>
+      </div>
+
+      <button (click)="addToCart(product.id)" class="btn-main translate-y-[120%] group-hover/card:translate-y-0 transition-[translate] duration-500">Add to cart</button>
+    </div>
+
+<!--
+    <div class="relative w-72 rounded-2xl overflow-hidden bg-gray-100">
+  <img
+    [src]="product.imageCover"
+    [alt]="product.title"
+    class="w-full h-56 object-cover"
+  />
+
+  <div class="absolute bottom-3 left-3 right-3 bg-white rounded-xl p-4 shadow-lg">
+    <h4 class="text-sm font-semibold line-clamp-2">
+      {{ product.title }}
+    </h4>
+
+    <p class="text-xs text-gray-500 mt-1">
+      By {{ product.category.name }}
+    </p>
+
+    <div class="flex items-center gap-1 mt-2 text-sm">
+      <i class="fas fa-star text-yellow-400"></i>
+      <span>{{ product.ratingsAverage }}</span>
+    </div>
+
+    <div class="flex items-center justify-between mt-3">
+      <div>
+        <span class="text-green-600 font-bold">
+          {{ product.price }} EGP
+        </span>
+        <span class="text-gray-400 line-through text-sm ml-2">
+          {{ product.price + 50 }} EGP
+        </span>
+      </div>
+
+      <button
+        class="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition"
+      >
+        <i class="fas fa-cart-plus"></i>
+      </button>
+    </div>
+  </div>
+</div> -->

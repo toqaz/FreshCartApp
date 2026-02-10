@@ -1,0 +1,17 @@
+<section class="pb-16">
+  <div class="mx-auto max-w-screen-2xl px-4 mb-4">
+
+    <div class="parent grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      @for (product of productsList() | paginate: pagination |search: searchText() ; track product.id){
+      <app-card [product]="product"></app-card>
+      }
+    </div>
+
+    <div class="mt-6 flex flex-wrap justify-center">
+      <pagination-controls id="products" class="my-pagination" (pageChange)="pageChanged($event)">
+      </pagination-controls>
+
+    </div>
+
+  </div>
+</section>

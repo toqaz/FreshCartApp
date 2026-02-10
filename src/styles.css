@@ -1,3 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+@utility container{
+  margin: 0 auto;
+}
+
+@layer components{
+  .btn-main {
+    @apply bg-red-400 py-1.75 px-5 border border-gray-300 rounded-[5px] text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300 disabled:hover:bg-gray-300 hover:bg-red-700 transition-[background-color] duration-500;
+  }
+  .card {
+    @apply border border-gray-200 shadow rounded p-2 overflow-hidden ;
+        }
+  .main-input{
+    @apply bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-xs focus:ring-red-500 focus:border-red-500 block w-full px-3 py-2.5 shadow-xs
+  }
+  .main-label{
+    @apply block mb-2.5 text-sm font-medium text-heading
+  }
+}
+
+*{
+  font-family: "Open Sans", sans-serif;
+}
