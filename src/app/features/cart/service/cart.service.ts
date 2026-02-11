@@ -46,4 +46,10 @@ export class CartService {
       this.myHeaders,
     );
   }
+  ClearAllCart(): Observable<CartDetailsResponse> {
+    return this.httpClient.delete<CartDetailsResponse>(
+      environment.base_url + 'cart',
+      this.myHeaders,
+    );
+  }
 }

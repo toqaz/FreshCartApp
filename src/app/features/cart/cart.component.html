@@ -1,13 +1,13 @@
 <section class="min-h-screen bg-gray-100 p-10">
-  <div class="flex flex-wrap gap-3 mb-3 text-gray-600 text-xl">
-    <h1>Cart</h1>
-
-    @if(cartDetailsData().products){
-    <span>{{cartDetailsData().products.length}} Items</span>
-    }
-
+  <div class="flex flex-wrap justify-between mb-4">
+    <div class="flex flex-wrap gap-3 mb-3 text-gray-600 text-xl">
+      <h1>Cart</h1>
+      @if(cartDetailsData().products){
+      <span>{{cartDetailsData().products.length}} Items</span>
+      }
+    </div>
+    <button class="btn-main cursor-pointer" (click)="ClearCartItems()">Clear Cart</button>
   </div>
-
   <div class="bg-gray-200 rounded-2xl overflow-hidden ">
 
     <div class="grid grid-cols-12 px-4 py-4 text-gray-600 bg-gray-300">
@@ -37,9 +37,11 @@
 
       <div class="col-span-2">
         <div class="flex items-center border border-gray-300 rounded-md w-fit bg-white">
-          <button class="px-3 py-1 hover:bg-gray-100" (click)="updateProductQuantity(item.product._id, item.count + 1)">+</button>
+          <button class="px-3 py-1 hover:bg-gray-100"
+            (click)="updateProductQuantity(item.product._id, item.count + 1)">+</button>
           <span class="px-4">{{ item.count }}</span>
-          <button class="px-3 py-1 hover:bg-gray-100" (click)="updateProductQuantity(item.product._id, item.count - 1)">-</button>
+          <button class="px-3 py-1 hover:bg-gray-100"
+            (click)="updateProductQuantity(item.product._id, item.count - 1)">-</button>
         </div>
       </div>
 
