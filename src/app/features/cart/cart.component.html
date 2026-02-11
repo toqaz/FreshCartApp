@@ -1,1 +1,86 @@
-<p>cart works!</p>
+<section class="min-h-screen bg-gray-100 p-10">
+  <div class="flex flex-wrap gap-3 mb-3 text-gray-600 text-xl">
+    <h1>Cart</h1>
+
+    @if(cartDetailsData().products){
+    <span>{{cartDetailsData().products.length}} Items</span>
+    }
+
+  </div>
+
+  <div class="bg-gray-200 rounded-2xl overflow-hidden ">
+
+    <div class="grid grid-cols-12 px-4 py-4 text-gray-600 bg-gray-300">
+      <div class="col-span-2">Products Image</div>
+      <div class="col-span-2">Product Name</div>
+      <div class="col-span-2">Price</div>
+      <div class="col-span-2">Quantity</div>
+      <div class="col-span-2">Total</div>
+      <div class="col-span-2">Action</div>
+    </div>
+
+    @for (item of cartDetailsData().products; track item.product._id) {
+    <div class="grid grid-cols-12 items-center px-4 py-6 border-t border-gray-300 text-gray-700 text-lg">
+
+      <div class="col-span-2">
+        <img alt="item" [alt]="item.product.title" [src]="item.product.imageCover"
+          class="w-20 h-20 object-contain rounded-lg bg-white border border-gray-300 p-2" />
+      </div>
+
+      <div class="col-span-2 text-lg">
+        {{ item.product.title }}
+      </div>
+
+      <div class="col-span-2 text-lg">
+        {{ item.price | currency:'GBP' }}
+      </div>
+
+      <div class="col-span-2">
+        <div class="flex items-center border border-gray-300 rounded-md w-fit bg-white">
+          <button class="px-3 py-1 hover:bg-gray-100" (click)="updateProductQuantity(item.product._id, item.count + 1)">+</button>
+          <span class="px-4">{{ item.count }}</span>
+          <button class="px-3 py-1 hover:bg-gray-100" (click)="updateProductQuantity(item.product._id, item.count - 1)">-</button>
+        </div>
+      </div>
+
+      <div class="col-span-2 text-lg">
+        {{ (item.price * item.count) | currency:'GBP' }}
+      </div>
+
+      <div class="cursor-pointer col-span-2 text-lg">
+        <i (click)="removeItemFromCart(item.product._id)" class="fa-regular fa-trash-can"></i>
+      </div>
+
+
+    </div>
+    }
+    @empty {
+    <h2 class="gap-3 mb-3 text-gray-600 text-xl"> No Data Added</h2>
+    }
+  </div>
+
+  <div class="mt-10 flex justify-end">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-sm p-8">
+
+      <h2 class="text-xl font-semibold text-gray-800 mb-6">
+        Order Summary
+      </h2>
+
+      <div class="flex justify-between mb-4 text-gray-600">
+        <div>
+          <span>Total Order</span>
+          <span>
+            {{
+            cartDetailsData().totalCartPrice
+            | currency:'GBP'
+            }}
+          </span>
+        </div>
+
+        <button class="btn-main w-auto">Check Out</button>
+      </div>
+
+    </div>
+  </div>
+
+</section>

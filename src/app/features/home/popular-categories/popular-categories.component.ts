@@ -20,7 +20,6 @@ export class PopularCategoriesComponent implements OnInit {
     this.categoriesServices.getAllCategories().subscribe({
       next: (res) => {
         this.categoriesList.set(res.data);
-        console.log(this.categoriesList());
       },
       error: (err) => {
         console.log(err);
