@@ -12,11 +12,13 @@ import { CheckoutComponent } from './features/checkout/checkout.component';
 import { DetailsComponent } from './features/details/details.component';
 import { NotfoundComponent } from './features/notfound/notfound.component';
 import { guestGuard } from './core/guards/guest-guard';
+import { AllordersComponent } from './features/allorders/allorders.component';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -63,12 +65,20 @@ export const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent,
+        canActivate: [authGuard],
         title: 'Cart',
       },
       {
-        path: 'checkout',
+        path: 'checkout/:id',
         component: CheckoutComponent,
+        canActivate: [authGuard],
         title: 'Checkout',
+      },
+      {
+        path: 'allorders',
+        component: AllordersComponent,
+        canActivate: [authGuard],
+        title: 'Orders',
       },
       {
         path: 'details/:slug/:id',

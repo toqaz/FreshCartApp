@@ -1,10 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
 import { CartService } from './service/cart.service';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe ,RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
@@ -33,7 +34,6 @@ export class CartComponent implements OnInit {
   removeItemFromCart(id: string): void {
     this.cartService.removeProductFromCart(id).subscribe({
       next: (res) => {
-        console.log(res);
         if (res.status === 'success') {
           this.cartDetailsData.set(res.data);
         }

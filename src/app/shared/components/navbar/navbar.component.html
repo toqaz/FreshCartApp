@@ -2,19 +2,14 @@
   <nav class="bg-neutral-primary  border-b border-gray-200">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl px-6 p-2">
       <!-- toggle button -->
-      <button data-collapse-toggle="navbar-default" type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
-        aria-controls="navbar-default" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-          viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
-        </svg>
+      <button (click)="toggleMenu()" title="btn" type="button"
+        class="lg:hidden p-2 w-10 h-10 text-body text-sm rounded-base hover:bg-neutral-secondary-soft">
+        <i class="fa fa-bars text-xl"></i>
       </button>
 
       <!-- links -->
       <div class="flex items-center">
-        <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+        <ul class="hidden lg:flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
 
           <li>
             <a routerLink="home" routerLinkActive="font-bold" class="text-heading hover:underline"
@@ -35,14 +30,42 @@
         </ul>
       </div>
       <!-- number as the figma design -->
-      <div class="flex items-center space-x-6 rtl:space-x-reverse">
+      <div class="hidden lg:flex items-center space-x-6 rtl:space-x-reverse">
         <a href="tel:5541251234" class="text-sm  text-body hover:underline">(013) 412-1234</a>
       </div>
     </div>
+
+
+    <!-- mobile lonks -->
+
+
+    <ul #mobileMenu [style.height.px]="isOpen? menuHeight : 0"
+      class="lg:hidden absolute top-full left-0 w-full bg-neutral-primary overflow-hidden transition-all duration-300 flex flex-col text-center text-sm font-medium">
+
+      <li>
+        <a routerLink="home" routerLinkActive="font-bold" class="text-heading hover:underline"
+          aria-current="page">Home</a>
+      </li>
+      <li>
+        <a routerLink="/products" routerLinkActive="font-bold" class="text-heading hover:underline"
+          aria-current="page">Products</a>
+      </li>
+      <li>
+        <a routerLink="/categories" routerLinkActive="font-bold" class="text-heading hover:underline"
+          aria-current="page">Categories</a>
+      </li>
+      <li>
+        <a routerLink="/brands" routerLinkActive="font-bold" class="text-heading hover:underline"
+          aria-current="page">Brands</a>
+      </li>
+    </ul>
+
+
+
   </nav>
   <!-- line two of nav bar -->
   <nav class="bg-neutral-primary border-default ">
-    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl px-6 p-4">
+    <div class="flex justify-between items-center mx-auto max-w-screen-2xl px-6 p-4">
       <div>
         <!-- logo -->
         <a routerLink="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -51,19 +74,28 @@
       </div>
 
       <!-- searchbar -->
-      <div class="flex shadow-xs rounded-base -space-x-0.5 mx-auto">
+      <div class="hidden lg:flex shadow-xs rounded-base mx-auto">
         <input type="search" id="search"
           class="px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm focus:ring-black focus:border-black block placeholder:text-body"
           placeholder="Search for products" required [(ngModel)]=searchtext (ngModelChange)="onSearch()">
-        <button type="button" title="searchbtn"
-          class="inline-flex items-center text-whiteb btn-main">
+        <button type="button" title="searchbtn" class="inline-flex items-center text-whiteb btn-main">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- mobile search -->
+      <div class="flex lg:hidden w-full mt-3">
+        <input type="search" id="search"
+          class="w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm focus:ring-black focus:border-black block placeholder:text-body"
+          placeholder="Search for products" required [(ngModel)]=searchtext (ngModelChange)="onSearch()">
+        <button type="button" title="searchbtn" class="inline-flex items-center text-whiteb btn-main">
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </div>
 
       <!-- second links -->
       <div class="flex items-center">
-        <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+        <ul class="hidden lg:flex font-medium space-x-6 text-sm">
           @if(isLogin === true){
           <li>
             <a routerLink="/profile" routerLinkActive="font-bold" class="text-heading hover:underline"

@@ -1,6 +1,6 @@
 import { SearchService } from './../../../core/services/search/search.service';
 import { AuthService } from './../../../core/auth/services/authentication/auth.service';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
 import { initFlowbite } from 'flowbite';
@@ -23,7 +23,20 @@ export class NavbarComponent implements OnInit {
 
   private readonly searchService = inject(SearchService);
 
+  @ViewChild('mobileMenu') menu!: ElementRef;
+  isOpen: boolean = false;
+  menuHeight: number = 0;
+
   searchtext: string = '';
+
+  toggleMenu(): void {
+    this.isOpen = !this.isOpen;
+    if (this.isOpen) {
+      this.menuHeight = this.menu.nativeElement.scrollHeight;
+    } else {
+      this.menuHeight = 0;
+    }
+  }
 
   ngOnInit(): void {
     this.flowbiteService.loadFlowbite((flowbite) => {

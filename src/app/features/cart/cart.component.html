@@ -79,7 +79,9 @@
           </span>
         </div>
 
-        <button class="btn-main w-auto">Check Out</button>
+        
+
+        <button [routerLink]="['/checkout', cartDetailsData()._id]" class="btn-main w-auto">Check Out</button>
       </div>
 
     </div>

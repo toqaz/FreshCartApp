@@ -52,4 +52,20 @@ export class CartService {
       this.myHeaders,
     );
   }
+
+  checkOutSession(cartId: string | null, checkoutData: object): Observable<PaymentDetailsResponse> {
+    return this.httpClient.post<PaymentDetailsResponse>(
+      environment.base_url + `orders/checkout-session/${cartId}?url=http://localhost:4200`,
+      checkoutData,
+      this.myHeaders,
+    );
+  }
+
+  cashCheckout(cartId: string | null, orderData: object): Observable<CashPaymentResponse> {
+    return this.httpClient.post<CashPaymentResponse>(
+      environment.base_url + `orders/${cartId}`,
+      orderData,
+      this.myHeaders,
+    );
+  }
 }
