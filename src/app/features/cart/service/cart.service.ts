@@ -1,8 +1,9 @@
 import { STORED_KEYS } from './../../../core/constants/storedKey';
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +11,19 @@ import { Observable } from 'rxjs';
 export class CartService {
   private readonly httpClient = inject(HttpClient);
 
-  myHeaders: object = {
-    headers: {
-      token: localStorage.getItem(STORED_KEYS.userToken)!,
-    },
-  };
+  private readonly platformId = inject(PLATFORM_ID);
+
+  myHeaders: object = {};
+
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.myHeaders = {
+        headers: {
+          token: localStorage.getItem(STORED_KEYS.userToken)!,
+        },
+      };
+    }
+  }
 
   addProductToCart(id: string): Observable<CartDataResponse> {
     return this.httpClient.post<CartDataResponse>(

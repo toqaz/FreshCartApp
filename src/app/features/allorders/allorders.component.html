@@ -1,1 +1,35 @@
-<p>allorders works!</p>
+<section class="pb-16">
+  <div class="mx-auto max-w-screen-2xl px-4 mb-4">
+
+    <div>
+      @for (order of ordersList() ; track order.id){
+      <div class="border p-4 mb-4 rounded-lg shadow">
+        <h4 class="text-lg mb-2">
+          Order Date : {{order.createdAt}}
+        </h4>
+        <h3 class="text-lg mb-2">
+          Payment Date : {{order.paidAt}}
+        </h3>
+        <h3 class="text-lg mb-2">
+          Payment Method : {{order.paymentMethodType}}
+        </h3>
+        <div class="mb-2">
+          Total: <span>{{order.totalOrderPrice| currency:'GBP'}}</span>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <h5 class="mb-2">products:</h5>
+        @for (item of order.cartItems; track item._id){
+        <div class="flex justify-around items-center mb-2">
+          <span>{{item.product.title}}</span>
+          <span>{{item.count}}</span>
+        </div>
+        }
+      </div>
+
+      }
+    </div>
+
+  </div>
+</section>

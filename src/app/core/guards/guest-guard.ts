@@ -8,11 +8,14 @@ export const guestGuard: CanActivateFn = (route, state) => {
   const platformId = inject(PLATFORM_ID);
 
   if (isPlatformBrowser(platformId)) {
+    const token = localStorage.getItem(STORED_KEYS.userToken);
 
-    if (localStorage.getItem(STORED_KEYS.userToken)) {
-      return router.parseUrl('/home') ;
+    if (!token) {
+      return true;
+    } else {
+      return router.parseUrl('/home');
     }
   }
 
-return true;
+  return true;
 };
