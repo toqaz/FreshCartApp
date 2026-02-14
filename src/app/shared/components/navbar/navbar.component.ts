@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-  @Input({ required: true }) isLogin: boolean = false;
 
   private readonly flowbiteService = inject(FlowbiteService);
 
@@ -51,5 +50,9 @@ export class NavbarComponent implements OnInit {
   onSearch(): void {
     this.searchService.searchResult(this.searchtext);
     this.router.navigate(['/products']);
+  }
+
+  get isLogin():boolean{
+    return !!this.authService.getUserId()
   }
 }

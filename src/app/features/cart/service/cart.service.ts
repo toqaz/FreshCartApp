@@ -11,38 +11,24 @@ import { isPlatformBrowser } from '@angular/common';
 export class CartService {
   private readonly httpClient = inject(HttpClient);
 
-  private readonly platformId = inject(PLATFORM_ID);
 
-  myHeaders: object = {};
-
-  constructor() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.myHeaders = {
-        headers: {
-          token: localStorage.getItem(STORED_KEYS.userToken)!,
-        },
-      };
-    }
-  }
 
   addProductToCart(id: string): Observable<CartDataResponse> {
     return this.httpClient.post<CartDataResponse>(
       environment.base_url + 'cart',
       {
         productId: id,
-      },
-      this.myHeaders,
+      }
     );
   }
 
   getLoggedUserCart(): Observable<CartDetailsResponse> {
-    return this.httpClient.get<CartDetailsResponse>(environment.base_url + 'cart', this.myHeaders);
+    return this.httpClient.get<CartDetailsResponse>(environment.base_url + 'cart',);
   }
 
   removeProductFromCart(id: string): Observable<CartDetailsResponse> {
     return this.httpClient.delete<CartDetailsResponse>(
-      environment.base_url + `cart/${id}`,
-      this.myHeaders,
+      environment.base_url + `cart/${id}`
     );
   }
 
@@ -51,30 +37,26 @@ export class CartService {
       environment.base_url + `cart/${id}`,
       {
         count: count,
-      },
-      this.myHeaders,
+      }
     );
   }
   ClearAllCart(): Observable<CartDetailsResponse> {
     return this.httpClient.delete<CartDetailsResponse>(
-      environment.base_url + 'cart',
-      this.myHeaders,
+      environment.base_url + 'cart'
     );
   }
 
   checkOutSession(cartId: string | null, checkoutData: object): Observable<PaymentDetailsResponse> {
     return this.httpClient.post<PaymentDetailsResponse>(
       environment.base_url + `orders/checkout-session/${cartId}?url=http://localhost:4200`,
-      checkoutData,
-      this.myHeaders,
+      checkoutData
     );
   }
 
   cashCheckout(cartId: string | null, orderData: object): Observable<CashPaymentResponse> {
     return this.httpClient.post<CashPaymentResponse>(
       environment.base_url + `orders/${cartId}`,
-      orderData,
-      this.myHeaders,
+      orderData
     );
   }
 }

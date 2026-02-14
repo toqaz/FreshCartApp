@@ -1,7 +1,9 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { CartService } from './service/cart.service';
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { STORED_KEYS } from '../../core/constants/storedKey';
+import { platformBrowser } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart',
@@ -11,11 +13,18 @@ import { RouterLink } from '@angular/router';
 })
 export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService);
+  private readonly platformId = inject(PLATFORM_ID)
 
   cartDetailsData: WritableSignal<CartDetails> = signal<CartDetails>({} as CartDetails);
 
   ngOnInit(): void {
-    this.getUserCartData();
+    if(isPlatformBrowser(this.platformId)){
+  const token = localStorage.getItem(STORED_KEYS.userToken);
+    if(token){
+      this.getUserCartData();
+    }
+    }
+
   }
 
   getUserCartData(): void {
