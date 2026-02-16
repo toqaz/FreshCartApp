@@ -1,19 +1,6 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
-import { RegisterComponent } from './core/auth/register/register.component';
-import { LoginComponent } from './core/auth/login/login.component';
-import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
-import { HomeComponent } from './features/home/home.component';
-import { ProductsComponent } from './features/products/products.component';
-import { CategoriesComponent } from './features/categories/categories.component';
-import { BrandsComponent } from './features/brands/brands.component';
-import { CartComponent } from './features/cart/cart.component';
-import { CheckoutComponent } from './features/checkout/checkout.component';
-import { DetailsComponent } from './features/details/details.component';
-import { NotfoundComponent } from './features/notfound/notfound.component';
-import { guestGuard } from './core/guards/guest-guard';
-import { AllordersComponent } from './features/allorders/allorders.component';
 import { authGuard } from './core/guards/auth-guard';
+import { guestGuard } from './core/guards/guest-guard';
 
 export const routes: Routes = [
   {
@@ -23,73 +10,106 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: AuthLayoutComponent,
+    loadComponent: () =>
+      import('./core/layouts/auth-layout/auth-layout.component').then((c) => c.AuthLayoutComponent),
     canActivate: [guestGuard],
     children: [
       {
         path: 'register',
-        component: RegisterComponent,
+        loadComponent: () =>
+          import('./core/auth/register/register.component').then((c) => c.RegisterComponent),
         title: 'Register',
       },
       {
         path: 'login',
-        component: LoginComponent,
+        loadComponent: () =>
+          import('./core/auth/login/login.component').then((c) => c.LoginComponent),
         title: 'Login',
+      },
+      {
+        path: 'forgetPassword',
+        loadComponent: () =>
+          import('./core/auth/forget-password/forget-password.component').then(
+            (c) => c.ForgetPasswordComponent,
+          ),
+        title: 'Reset Password',
+      },
+      {
+        path: 'resetPassword',
+        loadComponent: () =>
+          import('./core/auth/reset-password/reset-password.component').then(
+            (c) => c.ResetPasswordComponent,
+          ),
+        title: 'Reset Password',
       },
     ],
   },
   {
     path: '',
-    component: MainLayoutComponent,
+    loadComponent: () =>
+      import('./core/layouts/main-layout/main-layout.component').then((c) => c.MainLayoutComponent),
     children: [
       {
         path: 'home',
-        component: HomeComponent,
+        loadComponent: () => import('./features/home/home.component').then((c) => c.HomeComponent),
         title: 'Home',
       },
       {
         path: 'products',
-        component: ProductsComponent,
+        loadComponent: () =>
+          import('./features/products/products.component').then((c) => c.ProductsComponent),
         title: 'Products',
       },
       {
         path: 'categories',
-        component: CategoriesComponent,
+        loadComponent: () =>
+          import('./features/categories/categories.component').then((c) => c.CategoriesComponent),
         title: 'Categories',
       },
       {
         path: 'brands',
-        component: BrandsComponent,
+        loadComponent: () =>
+          import('./features/brands/brands.component').then((c) => c.BrandsComponent),
         title: 'Brands',
       },
       {
+        path: 'wishlist',
+        loadComponent: () =>
+          import('./features/wishlist/wishlist.component').then((c) => c.WishlistComponent),
+        title: 'Wishlist',
+      },
+      {
         path: 'cart',
-        component: CartComponent,
+        loadComponent: () => import('./features/cart/cart.component').then((c) => c.CartComponent),
         canActivate: [authGuard],
         title: 'Cart',
       },
       {
         path: 'checkout/:id',
-        component: CheckoutComponent,
+        loadComponent: () =>
+          import('./features/checkout/checkout.component').then((c) => c.CheckoutComponent),
         canActivate: [authGuard],
         title: 'Checkout',
       },
       {
         path: 'allorders',
-        component: AllordersComponent,
+        loadComponent: () =>
+          import('./features/allorders/allorders.component').then((c) => c.AllordersComponent),
         canActivate: [authGuard],
         title: 'Orders',
       },
       {
         path: 'details/:slug/:id',
-        component: DetailsComponent,
+        loadComponent: () =>
+          import('./features/details/details.component').then((c) => c.DetailsComponent),
         title: 'Details',
       },
     ],
   },
   {
     path: '**',
-    component: NotfoundComponent,
+    loadComponent: () =>
+      import('./features/notfound/notfound.component').then((c) => c.NotfoundComponent),
     title: 'Error',
   },
 ];

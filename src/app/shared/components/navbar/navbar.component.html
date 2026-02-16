@@ -65,7 +65,7 @@
   </nav>
   <!-- line two of nav bar -->
   <nav class="bg-neutral-primary border-default ">
-    <div class="flex justify-between items-center mx-auto max-w-screen-2xl px-6 p-4">
+    <div class="lg:flex md:flex-row justify-between items-center mx-auto max-w-screen-2xl px-6 p-4">
       <div>
         <!-- logo -->
         <a routerLink="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -75,7 +75,7 @@
 
       <!-- searchbar -->
       <div class="hidden lg:flex shadow-xs rounded-base mx-auto">
-        <input  type="search" id="search-pc"
+        <input type="search" id="search-pc"
           class="px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm focus:ring-black focus:border-black block placeholder:text-body"
           placeholder="Search for products" required [(ngModel)]=searchtext (ngModelChange)="onSearch()">
         <button type="button" title="searchbtn" class="inline-flex items-center text-whiteb btn-main">
@@ -95,19 +95,30 @@
 
       <!-- second links -->
       <div class="flex items-center">
-        <ul class="hidden lg:flex font-medium space-x-6 text-sm">
+        <ul class="flex font-medium space-x-6 text-sm">
           @if(isLogin){
           <li>
-            <a routerLink="/profile" routerLinkActive="font-bold" class="text-heading hover:underline"
-              aria-current="page">Profile</a>
+            <a routerLink="/profile" routerLinkActive="font-bold" class="py-2 px-3 cursor-pointer rounded-base md:p-0"
+              aria-current="page"><i class="fa-solid fa-user text-xl"></i>
+
+            </a>
           </li>
           <li>
-            <a routerLink="/cart" routerLinkActive="font-bold" class="text-heading hover:underline"
-              aria-current="page">Cart</a>
+            <a routerLink="/cart" routerLinkActive="font-bold"
+              class="block relative py-2 px-3 cursor-pointer rounded-base md:p-0" aria-current="page"><i
+                class="fas fa-cart-shopping text-xl"></i>
+              <span class="sr-only">
+                Number of Cart item
+              </span>
+              <div
+                class="absolute flex items-center justify-center w-5 h-5 text-sm text-white bg-red-500 rounded-full top-2 end-3">
+                {{count()}}
+              </div>
+            </a>
           </li>
           <li>
-            <a routerLink="/wishlist" routerLinkActive="font-bold" class="text-heading hover:underline"
-              aria-current="page">Wishlist</a>
+            <a routerLink="/wishlist" routerLinkActive="font-bold" class="py-2 px-3 cursor-pointer rounded-base md:p-0"
+              aria-current="page"><i class="fas fa-heart text-xl"></i></a>
           </li>
           <li>
             <a (click)="signOut()" class="text-heading hover:underline cursor-pointer" aria-current="page">SignOut</a>

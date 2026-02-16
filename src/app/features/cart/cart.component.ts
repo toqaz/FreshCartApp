@@ -7,24 +7,23 @@ import { platformBrowser } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe ,RouterLink],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService);
-  private readonly platformId = inject(PLATFORM_ID)
+  private readonly platformId = inject(PLATFORM_ID);
 
   cartDetailsData: WritableSignal<CartDetails> = signal<CartDetails>({} as CartDetails);
 
   ngOnInit(): void {
-    if(isPlatformBrowser(this.platformId)){
-  const token = localStorage.getItem(STORED_KEYS.userToken);
-    if(token){
-      this.getUserCartData();
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem(STORED_KEYS.userToken);
+      if (token) {
+        this.getUserCartData();
+      }
     }
-    }
-
   }
 
   getUserCartData(): void {
@@ -44,6 +43,7 @@ export class CartComponent implements OnInit {
     this.cartService.removeProductFromCart(id).subscribe({
       next: (res) => {
         if (res.status === 'success') {
+          this.cartService.cartCount.set(res.numOfCartItems);
           this.cartDetailsData.set(res.data);
         }
       },
@@ -68,8 +68,8 @@ export class CartComponent implements OnInit {
 
   ClearCartItems(): void {
     this.cartService.ClearAllCart().subscribe({
-      next: ()=>{
-        this.getUserCartData()
+      next: () => {
+        this.getUserCartData();
       },
       error: (err) => {
         console.log(err);
