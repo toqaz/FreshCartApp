@@ -35,8 +35,10 @@ export class CartService {
   }
 
   checkOutSession(cartId: string | null, checkoutData: object): Observable<PaymentDetailsResponse> {
+    const returnUrl = window.location.origin;
     return this.httpClient.post<PaymentDetailsResponse>(
-      environment.base_url + `orders/checkout-session/${cartId}?url=http://localhost:4200`,
+      environment.base_url +
+        `orders/checkout-session/${cartId}?url=${encodeURIComponent(returnUrl)}`,
       checkoutData,
     );
   }
