@@ -13,22 +13,27 @@
 
           <li>
             <a routerLink="home" routerLinkActive="font-bold" class="text-heading hover:underline"
-              aria-current="page">Home</a>
+              aria-current="page">{{'Home' | translate}}</a>
           </li>
           <li>
             <a routerLink="/products" routerLinkActive="font-bold" class="text-heading hover:underline"
-              aria-current="page">Products</a>
+              aria-current="page">{{'Products' | translate}}</a>
           </li>
           <li>
             <a routerLink="/categories" routerLinkActive="font-bold" class="text-heading hover:underline"
-              aria-current="page">Categories</a>
+              aria-current="page">{{'Categories' | translate }}</a>
           </li>
           <li>
             <a routerLink="/brands" routerLinkActive="font-bold" class="text-heading hover:underline"
-              aria-current="page">Brands</a>
+              aria-current="page">{{'Brands' | translate}}</a>
           </li>
+
+
         </ul>
       </div>
+
+
+
       <!-- number as the figma design -->
       <div class="hidden lg:flex items-center space-x-6 rtl:space-x-reverse">
         <a href="tel:5541251234" class="text-sm  text-body hover:underline">(013) 412-1234</a>
@@ -36,7 +41,7 @@
     </div>
 
 
-    <!-- mobile lonks -->
+    <!-- mobile links -->
 
 
     <ul #mobileMenu [style.height.px]="isOpen? menuHeight : 0"
@@ -96,6 +101,76 @@
       <!-- second links -->
       <div class="flex items-center">
         <ul class="flex font-medium space-x-6 text-sm">
+              <!-- languae drop down -->
+          <li>
+
+            <div class="relative inline-block" #dropdownRef>
+
+              <!-- Trigger Button -->
+              <button (click)="toggleDropdown()" [attr.aria-expanded]="isOpened" aria-haspopup="listbox"
+                aria-label="Select language" class="group flex items-center gap-2.5 px-3.5 py-2 rounded-xl
+           bg-white border border-red-200 shadow-sm
+           hover:border-red-300 hover:shadow-md
+           focus:outline-none focus:ring-2 focus:ring-red-500/40 focus:border-red-400
+           transition-all duration-200 ease-out cursor-pointer select-none">
+
+                <!-- Language Code -->
+                <span class="text-sm font-semibold text-slate-700 tracking-wide">
+                  {{ selected.code.toUpperCase() }}
+                </span>
+
+                <!-- Chevron -->
+                <svg [class.rotate-180]="isOpened"
+                  class="w-3.5 h-3.5 text-red-400 group-hover:text-red-600 transition-transform duration-200"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              <!-- Dropdown Panel -->
+              @if (isOpened) {
+              <div class="absolute right-0 mt-2 w-52 origin-top-right
+             bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/60
+             ring-1 ring-black/5 overflow-hidden z-50
+             animate-in fade-in slide-in-from-top-2 duration-150">
+                <!-- Header -->
+                <div class="px-3.5 pt-3 pb-2 border-b border-slate-100">
+                  <p class="text-2xs font-semibold text-red-400 uppercase tracking-widest">
+                    Language
+                  </p>
+                </div>
+
+                <!-- Options List -->
+                <ul role="listbox" aria-label="selected language" class="py-1.5 px-1.5 space-y-0.5">
+                  @for (lang of languages; track lang.code) {
+                  <li role="option" [attr.aria-selected]="lang.code === selected.code" (click)="selectLanguage(lang)"
+                    (keydown.enter)="selectLanguage(lang)" (keydown.space)="selectLanguage(lang)" tabindex="0" class="group flex items-center gap-3 px-2.5 py-2 rounded-xl cursor-pointer
+                   transition-all duration-150 ease-out focus:outline-none
+                   hover:bg-indigo-50 focus:bg-indigo-50" [class.bg-indigo-50]="lang.code === selected.code">
+
+                    <!-- Native Name -->
+                    <div class="flex-1 min-w-0">
+                      <p class="text-xs text-red-400 leading-tight truncate">
+                        {{ lang.name }}
+                      </p>
+                    </div>
+
+                    <!-- Active Checkmark -->
+                    @if (lang.code === selected.code) {
+                    <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    }
+                  </li>
+                  }
+                </ul>
+              </div>
+              }
+
+            </div>
+          </li>
+          <!-- language drop down -->
           @if(isLogin){
           <li>
             <a routerLink="/profile" routerLinkActive="font-bold" class="py-2 px-3 cursor-pointer rounded-base md:p-0"

@@ -3,6 +3,7 @@ import { ProductsService } from '../../../core/services/products/products.servic
 import { IProduct } from '../../../core/models/products/iproducts.interface';
 import { CardComponent } from "../../../shared/components/card/card.component";
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 export class PopularProductsComponent implements OnInit{
   private readonly productsService = inject(ProductsService)
 
+  private readonly translateService = inject(TranslateService)
+
 
   productsList:WritableSignal<IProduct[]> = signal<IProduct[]>([])
 
@@ -24,6 +27,13 @@ export class PopularProductsComponent implements OnInit{
       },
       error:()=>{
         console.log('Error occurred while fetching products');
+      }
+    })
+    this.translateService.onLangChange.subscribe({
+      next:(data)=>{
+        this.productsCustomOptions = {
+          ...this.productsCustomOptions , rtl :data.lang === 'ar' ? true : false,
+        }
       }
     })
   }
@@ -58,7 +68,8 @@ export class PopularProductsComponent implements OnInit{
         items: 6
       }
     },
-    nav: true
+    nav: true,
+    rtl: this.translateService.getCurrentLang() === 'ar'? true : false
   }
 
 }

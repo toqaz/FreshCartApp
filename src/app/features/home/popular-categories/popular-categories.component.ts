@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CategoriesService } from '../../../core/services/categories/categories.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-popular-categories',
@@ -13,8 +14,18 @@ export class PopularCategoriesComponent implements OnInit {
 
   categoriesList: WritableSignal<Icategories[]> = signal<Icategories[]>([]);
 
+   private readonly translateService = inject(TranslateService)
+
+
   ngOnInit(): void {
     this.getAllCategoriesData();
+    this.translateService.onLangChange.subscribe({
+      next:(data)=>{
+        this.categoriesCustomOptions = {
+          ...this.categoriesCustomOptions , rtl :data.lang === 'ar' ? true : false,
+        }
+      }
+    })
   }
   getAllCategoriesData(): void {
     this.categoriesServices.getAllCategories().subscribe({
@@ -58,6 +69,7 @@ export class PopularCategoriesComponent implements OnInit {
         items: 6
       }
     },
-    nav: true
+    nav: true,
+    rtl: this.translateService.getCurrentLang() === 'ar'? true : false
   }
 }

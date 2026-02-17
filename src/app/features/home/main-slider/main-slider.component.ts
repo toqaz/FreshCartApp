@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -7,10 +8,19 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   templateUrl: './main-slider.component.html',
   styleUrl: './main-slider.component.css',
 })
-export class MainSliderComponent {
+export class MainSliderComponent implements OnInit {
 
+  private readonly translateService = inject(TranslateService)
 
-
+  ngOnInit(): void {
+    this.translateService.onLangChange.subscribe({
+      next:(data)=>{
+        this.mainSliderCustom = {
+          ...this.mainSliderCustom , rtl :data.lang === 'ar' ? true : false,
+        }
+      }
+    })
+  }
 
   mainSliderCustom: OwlOptions = {
     loop: true,
@@ -23,6 +33,7 @@ export class MainSliderComponent {
     items:1,
     nav: true,
     autoplayTimeout:2500,
-    autoplayHoverPause:true
+    autoplayHoverPause:true,
+    rtl: this.translateService.getCurrentLang() === 'ar'? true : false
   }
 }
