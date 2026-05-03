@@ -31,6 +31,7 @@ export class CartComponent implements OnInit {
       next: (res) => {
         if (res.status === 'success') {
           this.cartDetailsData.set(res.data);
+          this.cartService.cartCount.set(res.numOfCartItems ?? 0);
         }
       },
       error: (err) => {
@@ -69,6 +70,7 @@ export class CartComponent implements OnInit {
   ClearCartItems(): void {
     this.cartService.ClearAllCart().subscribe({
       next: () => {
+        this.cartService.cartCount.set(0);
         this.getUserCartData();
       },
       error: (err) => {

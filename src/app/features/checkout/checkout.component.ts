@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../cart/service/cart.service';
 
-
 @Component({
   selector: 'app-checkout',
   imports: [ReactiveFormsModule],
@@ -52,6 +51,7 @@ export class CheckoutComponent implements OnInit {
         this.cartService.checkOutSession(this.cartId, this.checkOutForm.value).subscribe({
           next: (res) => {
             if (res.status === 'success') {
+              this.cartService.cartCount.set(0);
               window.open(res.session.url, '_self');
             }
           },
@@ -60,14 +60,15 @@ export class CheckoutComponent implements OnInit {
           },
         });
       } else if (method === 'cash') {
-      this.cartService.cashCheckout(this.cartId, this.checkOutForm.value).subscribe({
-        next: (res) => {
-          if (res.status === 'success') {
-            this.router.navigate(['/allorders']);
-          }
-        },
-      });
+        this.cartService.cashCheckout(this.cartId, this.checkOutForm.value).subscribe({
+          next: (res) => {
+            if (res.status === 'success') {
+              this.cartService.cartCount.set(0);
+              this.router.navigate(['/allorders']);
+            }
+          },
+        });
+      }
     }
   }
-    }
 }
