@@ -99,6 +99,12 @@ export const routes: Routes = [
         title: 'Orders',
       },
       {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/profile/profile.component').then((c) => c.ProfileComponent),
+        title: 'Profile',
+      },
+      {
         path: 'details/:slug/:id',
         loadComponent: () =>
           import('./features/details/details.component').then((c) => c.DetailsComponent),

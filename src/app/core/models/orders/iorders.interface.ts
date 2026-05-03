@@ -1,4 +1,4 @@
-interface Iorders {
+export interface Iorders {
   shippingAddress: ShippingAddress;
   taxPrice: number;
   shippingPrice: number;

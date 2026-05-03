@@ -18,7 +18,7 @@ export class MainSliderComponent implements OnInit {
         this.mainSliderCustom = {
           ...this.mainSliderCustom , rtl :data.lang === 'ar' ? true : false,
         }
-      }
+      },
     })
   }
 

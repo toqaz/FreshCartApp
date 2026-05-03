@@ -1,9 +1,9 @@
-import { error } from 'console';
 import { OrderService } from './../../core/services/orders/order.service';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/auth/services/authentication/auth.service';
 import { CurrencyPipe } from '@angular/common';
+import { Iorders } from '../../core/models/orders/iorders.interface';
 
 @Component({
   selector: 'app-allorders',
