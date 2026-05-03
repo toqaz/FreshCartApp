@@ -16,14 +16,14 @@ export interface Iorders {
   __v: number;
 }
 
-interface OrderCartItem {
+export interface OrderCartItem {
   count: number;
   _id: string;
   product: Product;
   price: number;
 }
 
-interface Product {
+export interface Product {
   subcategory: Subcategory[];
   ratingsQuantity: number;
   _id: string;
@@ -35,28 +35,28 @@ interface Product {
   id: string;
 }
 
-interface Category {
+export interface Category {
   _id: string;
   name: string;
   slug: string;
   image: string;
 }
 
-interface Subcategory {
+export interface Subcategory {
   _id: string;
   name: string;
   slug: string;
   category: string;
 }
 
-interface User {
+export interface User {
   _id: string;
   name: string;
   email: string;
   phone: string;
 }
 
-interface ShippingAddress {
+export interface ShippingAddress {
   details: string;
   phone: string;
   city: string;
