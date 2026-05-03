@@ -101,7 +101,7 @@
       <!-- second links -->
       <div class="flex items-center">
         <ul class="flex font-medium space-x-6 text-sm">
-              <!-- languae drop down -->
+          <!-- languae drop down -->
           <li>
 
             <div class="relative inline-block" #dropdownRef>
@@ -157,8 +157,8 @@
 
                     <!-- Active Checkmark -->
                     @if (lang.code === selected.code) {
-                    <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor" stroke-width="2.5">
+                    <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                      stroke-width="2.5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                     }
@@ -196,7 +196,8 @@
               aria-current="page"><i class="fas fa-heart text-xl"></i></a>
           </li>
           <li>
-            <a (click)="signOut()" class="text-heading hover:underline cursor-pointer" aria-current="page">{{SignOut | translate}}</a>
+            <a (click)="signOut()" class="text-heading hover:underline cursor-pointer" aria-current="page">{{'SignOut' |
+              translate}}</a>
           </li>
           } @else {
           <li>
