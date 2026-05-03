@@ -3,10 +3,11 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { OrderService } from '../../core/services/orders/order.service';
 import { AuthService } from './../../core/auth/services/authentication/auth.service';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
