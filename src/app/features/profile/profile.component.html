@@ -1,0 +1,24 @@
+<div class="container py-5">
+
+  @if (userData()) {
+    <div class="card shadow-sm mb-5">
+      <div class="card-body">
+        <h4 class="card-title mb-4 fw-bold">
+          <i class="fa fa-user-circle me-2 text-success"></i> My Profile
+        </h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">Name</span>
+            <span class="fw-semibold">{{ userData().name }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">Email</span>
+            <span class="fw-semibold">{{ userData().email }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  }
+
+
+</div>
